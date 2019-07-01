@@ -52,16 +52,18 @@ func main() {
 	web := twig.TODO()
 	web.AddServer(twig.NewServer(":4321")) // twig支持多server
 
-    // twig支持多路由， 在默认路由上增加handler
-	web.Config().
-		Get("/hello", func(c twig.Ctx) error {
-			return c.String(twig.OK, "Hello Twig!")
-		})
+    	// twig支持多路由， 在默认路由上增加handler
+	web.Config().AddHandler(twig.GET,"/hello",testGet)
 
 	web.Start()
 
 	twig.Signal(twig.Graceful(web, 15*time.Second), os.Interrupt)
 }
+
+func testGet(c twig.Ctx) error  {
+	return c.String(twig.OK, "Hello Twig!")
+}
+
 ```
 
 - Twig的默认监听端口是4321, 或者自定义自己的Server
