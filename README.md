@@ -54,7 +54,7 @@ func main() {
 
     // twig支持多路由， 在默认路由上增加handler
 	web.Config().
-		Get("/hello", func(c twig.Ctx) error {
+		AddHandler("/hello", func(c twig.Ctx) error {
 			return c.String(twig.OK, "Hello Twig!")
 		})
 
